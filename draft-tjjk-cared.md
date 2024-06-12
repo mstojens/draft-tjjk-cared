@@ -83,20 +83,22 @@ when communicating with TLS-based encrypted DNS protocols.
 
 # Introduction
 
-Generally, it is bad practice for encrypted DNS clients to provide any kind of identifying
-information to an encrypted DNS server. For example, Section 8.2 of RFC 8484 {todo: ref}
-discourages use of HTTP cookies with DoH. This ensures that clients provide a minimal amount
-of identifiable or correlatable information to servers.
-
-However, there are times when a client needs to identify itself to a server. One example
+There are times when a client needs to identify itself to a DNS server. One example
 would be when an encrypted DNS server only accepts connections from pre-approved clients,
-such as an encrypted DNS service provided by an enterprise for its work from home employees
+such as an encrypted DNS service provided by an enterprise for its remote employees
 to access when they are not connecting to the Internet through a network managed by that
 enterprise. Encrypted DNS clients trying to connect to such a server would likely run into
 refused connections if they did not provide authentication that proves they have that
 enterprise's permission to query this server.
 
-Because client authentication is not generally good practice for common DNS use cases, it
+This is different from general use of encrypted DNS by anonymous clients to public DNS
+resolvers, where it is bad practice to provide any kind of identifying
+information to an encrypted DNS server. For example, Section 8.2 of RFC 8484 {todo: ref}
+discourages use of HTTP cookies with DoH. This ensures that clients provide a minimal amount
+of identifiable or correlatable information to servers that do not need to know anything
+about the client in order to provide name resolution.
+
+Because of the significant difference in these scenarios, it
 is important to define the situations in which interoperable encrypted DNS clients can
 use client authentication without regressing the privacy value provided by encrypted DNS
 in the first place. Even then, it is important to recognize what value client authentication
