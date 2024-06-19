@@ -53,13 +53,13 @@ author:
     organization: Microsoft
     email: jess.krynitsky@microsoft.com
  -
-    fullname: Jeff ???
+    fullname: Jeffrey Damick
     organization: Amazon
-    email: TBD
+    email: jdamick@amazon.com
  -
-    fullname: Matt ???
+    fullname: Matt Engskow
     organization: Amazon
-    email: TBD
+    email: mengskow@amazon.com
 
 normative:
 
@@ -71,7 +71,7 @@ informative:
 For privacy reasons, encrypted DNS clients need to be anonymous to their encrypted DNS
 servers to prevent third parties from correlating client DNS queries with other data for
 surveillance or data mining purposes. However, there are cases where the client and server
-has a pre-existing relationship and each peer wants to prove its identity to the other.
+have a pre-existing relationship and each peer wants to prove its identity to the other.
 For example, an encrypted DNS server may only wish to accept resolutions from encrypted
 DNS clients that are managed by the same enterprise. This requires mutual authentication.
 
@@ -111,7 +111,7 @@ as well as make best practice recommendations for authentication.
 # Benefits of client authentication with encrypted DNS
 
 Strong identification of encrypted DNS clients by the encrypted DNS server allows the DNS
-server to apply client-specific resolution policy in a securely verifiable way. Today, a
+server to apply client-specific resolution policies in a securely verifiable way. Today, a
 common practice is to establish client-specific resolution policies that differentiate
 clients based on their observed IP address. This is not only an insecure method that cannot
 account for clients routing requests through proxies, but it can only be used when expected
@@ -119,8 +119,7 @@ IP addresses are known in advance. This is not practical for enterprises with re
 employees without introducing a dependency on tunneling DNS traffic to a managed gateway or
 proxy whose IP address is known. This in turn forces enterprises to choose between running
 proxy or gateway infrastructure per client (or at least per-client IP address mappings) or
-losing client resolution (cannot differentiate between clients connecting to the same proxy
-or gateway).
+losing client identification.
 
 Strong identification of encrypted DNS clients by the encrypted DNS server also brings
 identification up to the application layer, which encapsulates this identity management
@@ -131,10 +130,10 @@ resolutions have to as well without some form of client authentication).
 
 While there are benefits in limited circumstances for using client authentication with
 encrypted DNS, it has drawbacks that make it inappropriate in the general case. The
-biggest reason client authentication is generally bad practice with encrypted DNS is
+biggest reason client authentication is generally deemed a bad practice with encrypted DNS is
 the obvious identification of clients and the association of their queries across 
-connections. If a public DNS server (one which servers responses to anonymous clients over
-the Internet) were to challenge clients for authentication, it would be forced de-anonymization
+connections. If a public DNS server, which responds to anonymous clients over
+the Internet, were to challenge clients for authentication it would be forced de-anonymization
 of the client's domain name history. This is unacceptable practice.
 
 A less egregious drawback to client authentication with encrypted DNS is the required 
