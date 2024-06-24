@@ -23,25 +23,13 @@ title: "Client Authentication Recommendations for Encrypted DNS"
 abbrev: "CARED"
 category: info
 
-docname: draft-tjjk-BUTWHICHWG???-cared-latest
+docname: draft-tjjk-dnsop-cared
 submissiontype: IETF
-number:
-date:
-consensus: true
 v: 3
-area: AREA - TODO
-workgroup: WG Working Group - TODO
 keyword:
  - encrypted DNS
  - client authentication
  - mTLS
-venue:
-  group: WG - TODO
-  type: Working Group - TODO
-  mail: WG@example.com - TODO
-  arch: https://example.com/WG -- TODO
-  github: USER/REPO - TODO
-  latest: https://example.com/LATEST -- TODO
 
 author:
  -
@@ -49,7 +37,7 @@ author:
     organization: Microsoft
     email: tojens@microsoft.com
  -
-    fullname: Jess Krynitsky
+    fullname: Jessica Krynitsky
     organization: Microsoft
     email: jess.krynitsky@microsoft.com
  -
