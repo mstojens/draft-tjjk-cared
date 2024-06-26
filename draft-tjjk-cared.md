@@ -23,7 +23,7 @@ title: "Client Authentication Recommendations for Encrypted DNS"
 abbrev: "CARED"
 category: info
 
-docname: draft-tjjk-dnsop-cared
+docname: draft-tjjk-cared-00
 submissiontype: IETF
 v: 3
 keyword:
@@ -138,8 +138,8 @@ Client authentication with encrypted DNS SHOULD NOT be used outside the situatio
 in this section to avoid regressing the privacy model of encrypted DNS. It
 also needs to be acceptable to both peers.
 
-Only encrypted DNS protocols that use TLS or dTLS (such as DoH {?RFC8484},
-DoT {?RFC7858}, and DoQ {?RFC9250}) are in scope for this document.
+Only encrypted DNS protocols that use TLS or dTLS (such as DoH {{?RFC8484}},
+DoT {{?RFC7858}}, and DoQ {{?RFC9250}}) are in scope for this document.
 
 ## When servers should require client authentication
 
@@ -150,7 +150,7 @@ Encrypted DNS servers that meet the requirements in {{restrict-clients}} MAY
 challenge clients to authenticate to avoid achieving the same goal of identifying clients
 through other, less secure means (such as IP address or data in the DNS query payload).
 
-### Restricting connections to allowed clients {restrict-clients}
+### Restricting connections to allowed clients {#restrict-clients}
 
 Some encrypted DNS servers provide DNS services to a specific set of clients and refuse
 service to all other clients. One example of this may be an encrypted DNS server owned by an
@@ -158,13 +158,11 @@ enterprise that only allows connections from devices managed by that same enterp
 
 Encrypted DNS servers SHOULD NOT challenge clients to authenticate when the server knows
 it does not have a securely verifiable identity (such as when it is expecting clients to connect
-opportunistically {todo: ref 7858 opportunistic mode}). Such servers do not need to
+opportunistically as defined in {{Section 4.1 of ?RFC7858}}). Such servers do not need to
 identify allowed clients, since security-minded clients need to know to whom they are
 authenticating.
 
-Encrypted DNS servers SHOULD NOT challenge clients to authenticate when... TBD anything else?
-
-### Resolving names differently per client {per-client}
+### Resolving names differently per client {#per-client}
 
 Some encrypted DNS servers need to change their resolution behavior based on the identity
 of the client that issued the query because some clients have permission to resolve names
@@ -178,8 +176,6 @@ resolve almost every name, whereas another may try to refuse to resolve names as
 social media sites, or advertisers, or other categories customers find useful. This can be met
 by defining these endpoints as separate servers on different dedicated IP addresses or using
 different domain names in their encryped DNS configuration (such as DoH template), or both.
-
-Encrypted DNS servers SHOULD NOT attempt to authenticate clients when... TBD anything else?
 
 ## When clients should attempt to authenticate
 
@@ -211,12 +207,12 @@ mechanism for encrypted DNS clients:
 - SHOULD NOT require human user interaction to complete authentication
 
 This document concludes that the current best mechanism for encrypted DNS client authentication
-is mTLS {?RFC8705} for the following reasons:
+is mTLS {{?RFC8705}} for the following reasons:
 - mTLS identifies and authenticates clients, not users, per-connection
 - mTLS is an exiting standard and is often already configured for TLS clients
 - x.509 certificates used for TLS client authentication allow the server to identify the client's organization via PKI heiracrchy
 - mTLS is reusable across multiple encrypted DNS protocols
-- mTLS allows session resumption {?RFC5077}
+- mTLS allows session resumption {{?RFC5077}}
 - mTLS does not require user interaction or apaplication layer input for authentication
 
 Encrypted DNS clients and servers that support offering or requesting client authentication
@@ -267,11 +263,11 @@ be no need for at-run-time intervention by a human user.
 
 OAuth or JSON web tokens alone require HTTP to validate, so would not be a solution for encrypted DNS protocols other than DoH.
 Web access tokens can be used as certificate-bound access tokens in combination with mTLS if they are needed to prove
-identity with another authorization server, as described in {?RFC8705}.
+identity with another authorization server, as described in {{?RFC8705}}.
 
 ### HTTP authentication
 
-HTTP authentication as defined in {?RFC7235} provides a basic authentication scheme for the HTTP protocol. Unless it is used with TLS,
+HTTP authentication as defined in {{?RFC7235}} provides a basic authentication scheme for the HTTP protocol. Unless it is used with TLS,
 i.e. over HTTPS, the credentials are encoded but not encrypted which is insecure. As TLS is already used by the encrypted DNS
 protocols in this document's scope, it is simpler to handle client authentication and authorization at the TLS layer. 
 Additionally, mTLS is more broadly adopted than HTTP authentication. HTTP authentication would only be a viable option for DoH, 
@@ -280,7 +276,7 @@ and not extensible to other encrypted DNS solutions.
 ### FIDO
 
 Web Authentication (WebAuthN) and the FIDO2 Client to Authenticator Protocol (CTAP) use CBOR Object Signing and Encryption (COSE),
-described in {?RFC8812}. FIDO and WebAuthN are passkey solutions designed to replace passwords for user authentication for online services,
+described in {{?RFC8812}}. FIDO and WebAuthN are passkey solutions designed to replace passwords for user authentication for online services,
 and they are not typically used for general client authentication. Passkeys are unique for each online service and require user input
 for registration, and would require DNS servers to support the WebAuthN protocol. Additionally, each sign-in requires user input
 for local verification, using biometric, local PIN, or a FIDO security key.
@@ -311,7 +307,7 @@ hard coding IP addresses and host names for certificate checking).
 
 This document describes when and how encrypted DNS clients can authenticate themselves to
 an encrypted DNS server. It does not introduce any new security considerations not already
-covered by TLS {TOOD: ref} and mTLS {TODO: ref}. This document does not define recommendations
+covered by TLS and mTLS. This document does not define recommendations
 for when and how to use encrypted DNS client authentication for encrypted DNS protocols that
 are not TLS-based.
 
