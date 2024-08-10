@@ -34,7 +34,14 @@ author:
 normative:
 
 informative:
-
+    EDSR-REDIRECTIION:
+        title: "Encrypted DNS Server Redirectio"
+        date: 2024
+        author:
+          - ins: J. Todd
+          - ins: T. Jensen
+          - ins: C. Mosher
+        target: https://datatracker.ietf.org/doc/draft-ietf-add-encrypted-dns-server-redirection/
 
 --- abstract
 
@@ -95,7 +102,7 @@ losing client identification.
 
 Strong identification of encrypted DNS clients by the encrypted DNS server also brings
 identification up to the application layer, which encapsulates this identity management
-away from network topology changes (whenever IP address ranges need to change, name 
+away from network topology changes (whenever IP address ranges need to change, name
 resolutions have to as well without some form of client authentication).
 
 # Drawbacks of client authentication with encrypted DNS
@@ -103,12 +110,12 @@ resolutions have to as well without some form of client authentication).
 While there are benefits in limited circumstances for using client authentication with
 encrypted DNS, it has drawbacks that make it inappropriate in the general case. The
 biggest reason client authentication is generally deemed a bad practice with encrypted DNS is
-the obvious identification of clients and the association of their queries across 
+the obvious identification of clients and the association of their queries across
 connections. If a public DNS server, which responds to anonymous clients over
 the Internet, were to challenge clients for authentication it would be forced de-anonymization
 of the client's domain name history. This is unacceptable practice.
 
-A less egregious drawback to client authentication with encrypted DNS is the required 
+A less egregious drawback to client authentication with encrypted DNS is the required
 management of client identities and the complexity of matrixing domain name allow- and block-lists
 against client identities for policy enforcement. This will be significantly more challenging for
 encrypted DNS server operators to deploy and require industry-wide adoption. This drawback will reduce
@@ -171,7 +178,7 @@ configured for the encrypted DNS client as one that might require authentication
 because in that circumstance there is not a pre-existing relationship with the encrypted DNS
 server (or else DDR bootstrapping into encrypted DNS would not have been necessary).
 
-TBD: what to do with EDSR destinations
+TBD: what to do with EDSR destinations {{EDSR-REDIRECTIION}}
 
 Otherwise, an encrypted DNS client MAY choose to present authentication to a server that
 requests it, but is not required to just because it was challenged to do so if the client
@@ -183,18 +190,28 @@ DNS servers.
 
 The following requirements were considered when formulating the recommended authentication
 mechanism for encrypted DNS clients:
+
 - SHOULD be per-connection, not per-query (avoid unnecessary payload overheads)
+
 - SHOULD use existing open standards (avoid vendor lock-in and specialized cryptography)
+
 - SHOULD be reusable across multiple encrypted DNS protocols (avoid protocol preference)
+
 - SHOULD NOT require human user interaction to complete authentication
 
 This document concludes that the current best mechanism for encrypted DNS client authentication
 is mTLS {{?RFC8705}} for the following reasons:
+
 - mTLS identifies and authenticates clients, not users, per-connection
+
 - mTLS is an exiting standard and is often already configured for TLS clients
+
 - x.509 certificates used for TLS client authentication allow the server to identify the client's organization via PKI heiracrchy
+
 - mTLS is reusable across multiple encrypted DNS protocols
-- mTLS allows session resumption {{?RFC5077}}
+
+- mTLS allows session resumption {{?RFC8446}}
+
 - mTLS does not require user interaction or apaplication layer input for authentication
 
 Encrypted DNS clients and servers that support offering or requesting client authentication
@@ -220,7 +237,7 @@ encrypted DNS connections.
 This is not expected to create excessive cost for server operators because supporting encrypted
 DNS without client authentication already requires per-connection state management.
 
-### Reuse open standards
+### Reusable open standards
 
 Reusing open standards ensures wide interoperability between vendors that choose to implement
 client authentication in their encrypted DNS stacks.
@@ -231,7 +248,7 @@ If a client authentication method for encrypted DNS were defined or recommended 
 be usable by some TLS-encrypted DNS protocols, it would encourage the development of a second
 or even third solution later.
 
-### Do not require human interaction
+### Does not require human interaction
 
 Humans using devices that use encrypted DNS, when given any kind of prompt or login relating to
 establishing encrypted DNS connectivity, are unlikely to understand what is happening and why. This
@@ -249,10 +266,10 @@ identity with another authorization server, as described in {{?RFC8705}}.
 
 ### HTTP authentication
 
-HTTP authentication as defined in {{?RFC7235}} provides a basic authentication scheme for the HTTP protocol. Unless it is used with TLS,
+HTTP authentication as defined in {{?RFC9110}} provides a basic authentication scheme for the HTTP protocol. Unless it is used with TLS,
 i.e. over HTTPS, the credentials are encoded but not encrypted which is insecure. As TLS is already used by the encrypted DNS
-protocols in this document's scope, it is simpler to handle client authentication and authorization at the TLS layer. 
-Additionally, mTLS is more broadly adopted than HTTP authentication. HTTP authentication would only be a viable option for DoH, 
+protocols in this document's scope, it is simpler to handle client authentication and authorization at the TLS layer.
+Additionally, mTLS is more broadly adopted than HTTP authentication. HTTP authentication would only be a viable option for DoH,
 and not extensible to other encrypted DNS solutions.
 
 ### FIDO
@@ -269,20 +286,22 @@ Designing a novel solution is never recommended when there is an existing standa
 Doing so would make the encrypted DNS solution more difficult and time-consuming to adopt, and most likely would
 introduce vendor lock-in.
 
-# Deployment Considerations
+# Operational Considerations
 
 ## Avoiding connectivity deadlocks
 
 Deployers should carefully consider how they will handle certificate rollover and revocation. If an
 encrypted DNS server only allows connections from clients with valid certificates, and the client is configured
 to only use the encrypted DNS server, then there will be a deadlock when the certificate expires or is revoked
-such that the client device will not have the connectivity needed to renew or replace its certificate. 
+such that the client device will not have the connectivity needed to renew or replace its certificate.
 
 Encrypted DNS servers that challenge clients for authentication SHOULD have a separate resolution policy for
 clients that do not have valid credentials that allows them to resolve the subset of names needed to connect to
-the infrastructure needed to acquire certificates. Alternatively, encrypted DNS clients that are configured to use encrypted DNS
-servers that will require authentication MAY consider configuring knowledge of certificate issuing infrastructure in advance
-so that the DNS deadlock can be avoided without introducing less secure DNS servers to their configuration (i.e. 
+the infrastructure needed to acquire certificates.
+
+Alternatively, encrypted DNS clients that are configured to use encrypted DNS servers that will require
+authentication MAY consider configuring knowledge of certificate issuing infrastructure in advance
+so that the DNS deadlock can be avoided without introducing less secure DNS servers to their configuration (i.e.
 hard coding IP addresses and host names for certificate checking).
 
 # Security Considerations
