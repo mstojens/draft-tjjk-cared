@@ -34,8 +34,8 @@ author:
 normative:
 
 informative:
-    EDSR-REDIRECTIION:
-        title: "Encrypted DNS Server Redirectio"
+    EDSR-REDIRECTION:
+        title: "Encrypted DNS Server Redirection"
         date: 2024
         author:
           - ins: J. Todd
@@ -178,7 +178,7 @@ configured for the encrypted DNS client as one that might require authentication
 because in that circumstance there is not a pre-existing relationship with the encrypted DNS
 server (or else DDR bootstrapping into encrypted DNS would not have been necessary).
 
-TBD: what to do with EDSR destinations {{EDSR-REDIRECTIION}}
+TBD: what to do with EDSR destinations {{EDSR-REDIRECTION}}
 
 Otherwise, an encrypted DNS client MAY choose to present authentication to a server that
 requests it, but is not required to just because it was challenged to do so if the client
