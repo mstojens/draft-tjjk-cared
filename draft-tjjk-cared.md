@@ -87,6 +87,17 @@ as well as make best practice recommendations for authentication.
 
 {::boilerplate bcp14-tagged}
 
+# Terminology
+
+Encrypted DNS server: a recursive DNS resolver that implements one or more encrypted
+DNS protocols, such as those defined in {{!RFC9499}} (DNS-over-TLS, DNS-over-HTTPS,
+DNS-over-QUIC).
+
+Protective DNS server: a policy-implementing, recursive DNS resolver service that filters DNS
+queries to prevent resolution for known malicious domains and/or IP addresses. Protective DNS 
+servers support DNS technologies including encrypted DNS protocol support (DoH/DoT) and IPv6
+resolution.
+
 # Benefits of client authentication with encrypted DNS
 
 Strong identification of encrypted DNS clients by the encrypted DNS server allows the DNS
