@@ -62,7 +62,7 @@ This requires mutual authentication.
 
 This document discusses the circumstances under which client
 authentication is appropriate to use with encrypted DNS, the benefits
-and limitations of doing so, and recommends authentication mechanims
+and limitations of doing so, and recommends authentication mechanisms
 to be used when communicating with TLS-based encrypted DNS protocols.
 
 --- middle
@@ -245,26 +245,26 @@ The following requirements were considered when formulating the
 recommended authentication mechanism for encrypted DNS clients.
 The authentication mechanism:
 
-# SHOULD be per-connection, not per-query, e.g. to
+1. SHOULD be per-connection, not per-query, e.g. to
 avoid unnecessary payload overheads
-# SHOULD use open, standard mechanisms where
+2. SHOULD use open, standard mechanisms where
 possible, e.g. to avoid vendor lock-in and specialized cryptography
-# SHOULD be reusable across multiple encrypted DNS protocols, e.g.
+3. SHOULD be reusable across multiple encrypted DNS protocols, e.g.
 to avoid protocol preference
-# SHOULD NOT require human user interaction to complete authentication
+4. SHOULD NOT require human user interaction to complete authentication
 
 This document concludes that the best mechanism for encrypted
 DNS client authentication is mTLS {{?RFC8705}} for the following
 reasons:
 
-# mTLS identifies and authenticates clients, not users, per-connection
-# mTLS is an existing standard and is often readily available for TLS clients
-# X.509 certificates used for TLS client authentication allow a server to
+1. mTLS identifies and authenticates clients, not users, per-connection
+2. mTLS is an existing standard and is often readily available for TLS clients
+3. X.509 certificates used for TLS client authentication allow a server to
 include other attributes in an authentication decision, such as the client's
 organization via PKI heiracrchy
-# mTLS is reusable across multiple encrypted DNS protocols
-# mTLS allows session resumption {{?RFC8446}}
-# mTLS does not require user interaction or apaplication layer input
+4. mTLS is reusable across multiple encrypted DNS protocols
+5. mTLS allows session resumption {{?RFC8446}}
+6. mTLS does not require user interaction or apaplication layer input
 for authentication
 
 Encrypted DNS clients and servers that support offering or requesting
