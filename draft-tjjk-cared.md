@@ -169,12 +169,14 @@ section.
 Encrypted DNS servers that use other transport protocols are not
 in scope for this document.
 
-Encrypted DNS servers MUST NOT challenge clients for authentication unless they need to
-restrict connections to a set of clients they have a pre-existing relationship with as defined
-in {{#restrict-clients}}, regardless of whether or not the requirements in {{per-client}} apply.
-Encrypted DNS servers that meet the requirements in {{restrict-clients}} MAY
-challenge clients to authenticate to avoid achieving the same goal of identifying clients
-through other, less secure means (such as IP address or data in the DNS query payload).
+Encrypted DNS servers MUST NOT challenge clients for authentication
+unless they need to restrict connections to a set of clients they
+have a pre-existing relationship with as defined in {restrict-clients},
+regardless of whether or not the requirements in {per-client}
+apply.  Encrypted DNS servers that meet the requirements in
+{restrict-clients} MAY challenge clients to authenticate to avoid
+achieving the same goal of identifying clients through other, less
+secure means (such as IP address or data in the DNS query payload).
 
 ### Restricting connections to allowed clients {#restrict-clients}
 
