@@ -169,6 +169,8 @@ section.
 Encrypted DNS servers that use other transport protocols are not
 in scope for this document.
 
+## When servers should require client authentication
+
 Encrypted DNS servers MUST NOT challenge clients for authentication
 unless they need to restrict connections to a set of clients they
 have a pre-existing relationship with as defined in {restrict-clients},
