@@ -80,8 +80,9 @@ Table of Contents
    4.  Benefits of client authentication with encrypted DNS  . . . .   4
    5.  Drawbacks of client authentication with encrypted DNS . . . .   4
    6.  When to use client authentication with encrypted DNS  . . . .   5
-     6.1.  Restricting connections to allowed clients  . . . . . . .   5
-       6.1.1.  Resolving names differently per client  . . . . . . .   5
+     6.1.  When servers should require client authentication . . . .   5
+       6.1.1.  Restricting connections to allowed clients  . . . . .   5
+       6.1.2.  Resolving names differently per client  . . . . . . .   5
      6.2.  When clients should attempt to authenticate . . . . . . .   6
    7.  Recommendations . . . . . . . . . . . . . . . . . . . . . . .   6
      7.1.  Why these requirements were chosen  . . . . . . . . . . .   7
@@ -103,7 +104,6 @@ Table of Contents
      11.2.  Informative References . . . . . . . . . . . . . . . . .  10
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  12
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
-
 
 
 
@@ -240,6 +240,8 @@ Internet-Draft                    CARED                     October 2024
    Encrypted DNS servers that use other transport protocols are not in
    scope for this document.
 
+6.1.  When servers should require client authentication
+
    Encrypted DNS servers MUST NOT challenge clients for authentication
    unless they need to restrict connections to a set of clients they
    have a pre-existing relationship with as defined in {restrict-
@@ -249,7 +251,7 @@ Internet-Draft                    CARED                     October 2024
    achieving the same goal of identifying clients through other, less
    secure means (such as IP address or data in the DNS query payload).
 
-6.1.  Restricting connections to allowed clients
+6.1.1.  Restricting connections to allowed clients
 
    An encrypted DNS server that provides resolution to a specific set of
    clients and refuses service to all other clients MAY require clients
@@ -259,7 +261,7 @@ Internet-Draft                    CARED                     October 2024
    allows connections from devices managed by that same enterprise might
    require clients to authenticate.
 
-6.1.1.  Resolving names differently per client
+6.1.2.  Resolving names differently per client
 
    An encrypted DNS server that provides client-specific resolution
    behaviour MAY require clients to authenticate in circumstances where
@@ -270,8 +272,6 @@ Internet-Draft                    CARED                     October 2024
    clients to resolve certain names while other clients are not allowed
    needs to identify the client so that the resolution behaviour for
    those names can be implemented accurately.
-
-
 
 
 
