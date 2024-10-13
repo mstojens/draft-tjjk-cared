@@ -156,7 +156,7 @@ mitigate unwanted server load. Public encrypted DNS servers with
 the additional requirement to permit authenticated clients makes
 it impossible to drop unwanted traffic early based on source IP
 address, which increases the cost of mitigation and adds complexity
-that may well introduce additional attack vectors.
+that may introduce additional attack vectors.
 
 # When to use client authentication with encrypted DNS
 
