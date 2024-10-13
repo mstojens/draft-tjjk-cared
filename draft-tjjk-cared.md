@@ -394,7 +394,7 @@ authenticate themselves to an encrypted DNS server. It does not
 introduce any new security considerations beyond those of TLS and
 mTLS. This document does not define recommendations for when and
 how to use encrypted DNS client authentication for encrypted DNS
-protocols that are based on TLS or dTLS.
+protocols that are not based on TLS or dTLS.
 
 # IANA Considerations
 
