@@ -190,7 +190,7 @@ For example, an encrypted DNS server owned by an enterprise that
 only allows connections from devices managed by that same enterprise
 might require clients to authenticate.
 
-### Resolving names differently per client {#per-client}
+## Resolving names differently per client {#per-client}
 
 An encrypted DNS server that provides client-specific resolution
 behaviour MAY require clients to authenticate in circumstances
