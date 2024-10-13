@@ -149,7 +149,7 @@ it allows a full history of resolution requests to be associated
 confidently with the identity of an individual client. This is
 unacceptable practice.
 
-Public DNS servers generally implement allow- and blocklists at the
+Public DNS servers generally implement allowlists and blocklists at the
 IP layer as part of a layered defence against abuse; IP-layer access
 control allows unwanted traffic to be discarded early and helps
 mitigate unwanted server load. Public encrypted DNS servers with
