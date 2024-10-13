@@ -180,7 +180,7 @@ apply.  Encrypted DNS servers that meet the requirements in
 achieving the same goal of identifying clients through other, less
 secure means (such as IP address or data in the DNS query payload).
 
-### Restricting connections to allowed clients {#restrict-clients}
+## Restricting connections to allowed clients {#restrict-clients}
 
 An encrypted DNS server that provides resolution to a specific set
 of clients and refuses service to all other clients MAY require
