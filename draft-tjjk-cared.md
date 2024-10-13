@@ -82,7 +82,7 @@ This is different from general use of encrypted DNS by anonymous
 clients to public DNS resolvers, where it is bad practice for the
 client to provide any kind of identifying information to the server.
 For example, Section 8.2 of {{?RFC8484}} discourages use of HTTP
-cookies with DNS over HTTP (DoH). This ensures that clients provide
+cookies with DNS-over-HTTPS (DoH). This ensures that clients provide
 a minimal amount of identifiable or correlatable information to
 servers that do not need to know anything about the client in order
 to provide name resolution.
