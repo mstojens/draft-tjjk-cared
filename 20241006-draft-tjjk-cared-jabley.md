@@ -82,7 +82,7 @@ This is different from general use of encrypted DNS by anonymous
 clients to public DNS resolvers, where it is bad practice for the
 client to provide any kind of identifying information to the server.
 For example, Section 8.2 of {{?RFC8484}} discourages use of HTTP
-cookies with DNS-over-HTTPS (DoH). This ensures that clients provide
+cookies with DNS over HTTP (DoH). This ensures that clients provide
 a minimal amount of identifiable or correlatable information to
 servers that do not need to know anything about the client in order
 to provide name resolution.
@@ -149,14 +149,14 @@ it allows a full history of resolution requests to be associated
 confidently with the identity of an individual client. This is
 unacceptable practice.
 
-Public DNS servers generally implement allowlists and blocklists at the
+Public DNS servers generally implement allow- and blocklists at the
 IP layer as part of a layered defence against abuse; IP-layer access
 control allows unwanted traffic to be discarded early and helps
 mitigate unwanted server load. Public encrypted DNS servers with
 the additional requirement to permit authenticated clients makes
 it impossible to drop unwanted traffic early based on source IP
 address, which increases the cost of mitigation and adds complexity
-that may introduce additional attack vectors.
+that may well introduce additional attack vectors.
 
 # When to use client authentication with encrypted DNS
 
@@ -180,7 +180,7 @@ apply.  Encrypted DNS servers that meet the requirements in
 achieving the same goal of identifying clients through other, less
 secure means (such as IP address or data in the DNS query payload).
 
-## Restricting connections to allowed clients {#restrict-clients}
+### Restricting connections to allowed clients {#restrict-clients}
 
 An encrypted DNS server that provides resolution to a specific set
 of clients and refuses service to all other clients MAY require
@@ -190,7 +190,7 @@ For example, an encrypted DNS server owned by an enterprise that
 only allows connections from devices managed by that same enterprise
 might require clients to authenticate.
 
-## Resolving names differently per client {#per-client}
+### Resolving names differently per client {#per-client}
 
 An encrypted DNS server that provides client-specific resolution
 behaviour MAY require clients to authenticate in circumstances
@@ -394,7 +394,7 @@ authenticate themselves to an encrypted DNS server. It does not
 introduce any new security considerations beyond those of TLS and
 mTLS. This document does not define recommendations for when and
 how to use encrypted DNS client authentication for encrypted DNS
-protocols that are not based on TLS or dTLS.
+protocols that are based on TLS or dTLS.
 
 # IANA Considerations
 
