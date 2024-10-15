@@ -270,8 +270,11 @@ organization via PKI heiracrchy
 for authentication
 
 Encrypted DNS clients and servers that support offering or requesting
-client authentication MUST support at least the use of mTLS in
-addition to whatever other mechanism they wish to support.
+client authentication MUST support at least the use of mTLS with TLS 1.3 in
+addition to whatever other mechanism they wish to support. Client 
+authentication using PKI certificates is recommended, but pre-shared
+keys may also be used, provided (EC)DHE key exchange is used to maintain
+perfect forward secrecy {{?RFC8446}}.
 
 Encrypted DNS clients and servers SHOULD prefer long-lived connections
 when using client authentication to minimize the cost over time of
