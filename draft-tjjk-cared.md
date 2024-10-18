@@ -232,8 +232,6 @@ This is because in that circumstance there is not a pre-existing
 relationship with the encrypted DNS server (or else DDR bootstrapping
 into encrypted DNS would not have been necessary).
 
-TBD: what to do with EDSR destinations {{EDSR-REDIRECTION}}
-
 An encrypted DNS client MAY choose to present authentication to a
 server that requests it, but is not required to do so; for example,
 a client MAY choose instead not to use the server. If a client does
