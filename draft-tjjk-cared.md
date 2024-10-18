@@ -17,7 +17,7 @@ author:
  -
     fullname: Tommy Jensen
     organization: Microsoft
-    email: tojens@microsoft.com
+    email: tojens.ietf@gmail.com
  -
     fullname: Jessica Krynitsky
     organization: Microsoft
