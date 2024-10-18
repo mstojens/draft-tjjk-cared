@@ -366,8 +366,8 @@ adopt, and most likely would introduce vendor lock-in.
 
 ## Avoiding connectivity deadlocks
 
-Deployers should carefully consider how they will handle certificate
-rollover and revocation. If an encrypted DNS server only allows
+When deploying encrypted DNS Clients, careful consideration should be made how
+certificate rollover and revocation will happen. If an encrypted DNS server only allows
 connections from clients with valid certificates, and the client
 is configured to only use the encrypted DNS server, then there will
 be a deadlock when the certificate expires or is revoked such that
