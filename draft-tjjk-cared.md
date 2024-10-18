@@ -175,7 +175,13 @@ Encrypted DNS servers MUST NOT challenge clients for authentication
 unless they need to restrict connections to a set of clients they
 have a pre-existing relationship with as defined in {restrict-clients},
 regardless of whether or not the requirements in {per-client}
-apply.  Encrypted DNS servers that meet the requirements in
+apply. Encrypted DNS servers also MUST NOT challenge clients for
+authentication when it knows its identity cannot be securely
+verified. Examples of this include using self-signed certificates
+or making itself discoverable using DDR's Discovery Using Resolver IP Addresses
+mechanism described in {{Section 4 of ?RFC9462}}.
+
+Encrypted DNS servers that meet the requirements in
 {restrict-clients} MAY challenge clients to authenticate to avoid
 achieving the same goal of identifying clients through other, less
 secure means (such as IP address or data in the DNS query payload).
@@ -225,7 +231,7 @@ which the client chose or discovered the encrypted DNS server to
 use.
 
 An encrypted DNS client MUST NOT offer authentication when the
-server connection was established using DDR {{?RFC9462}}, even if
+server connection was established using {{Section 4 of ?RFC9462}}, even if
 the IP address of the original DNS server was specifically configured
 for the encrypted DNS client as one that might require authentication.
 This is because in that circumstance there is not a pre-existing
