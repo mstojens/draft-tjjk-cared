@@ -196,6 +196,12 @@ For example, an encrypted DNS server owned by an enterprise that
 only allows connections from devices managed by that same enterprise
 might require clients to authenticate.
 
+Note that this does not apply to scenarios where the owner of the encrypted DNS
+server and the device using the encrypted DNS client, such as an ISP and its
+customers. While this is a scenario where the ISP may wish to restrict access to
+its encrypted DNS resolver to only its customers, client authentication of DNS
+traffic is not necessary to achieve that.
+
 ## Resolving names differently per client {#per-client}
 
 An encrypted DNS server that provides client-specific resolution
@@ -228,7 +234,9 @@ An encrypted DNS client MUST NOT offer authentication to any encrypted
 DNS server unless it was specifically configured to expect that
 server to require authentication, independent of the mechanism by
 which the client chose or discovered the encrypted DNS server to
-use.
+use. In other words, encrypted DNS client authentication MUST require
+administrator action typical of enterprise managed devices rather than being
+out of the box default behavior for an application or operating system.
 
 An encrypted DNS client MUST NOT offer authentication when the
 server connection was established using {{Section 4 of ?RFC9462}}, even if
@@ -242,26 +250,33 @@ An encrypted DNS client MAY choose to present authentication to a
 server that requests it, but is not required to do so; for example,
 a client MAY choose instead not to use the server. If a client does
 present an identity to a server, the identity SHOULD be unique to
-that server, to reduce the risk of a client's resolution history
-on multiple colluding servers being correlated.
+that server, or unique to servers provided by the same provider when the client
+has that information, to reduce the risk of a client's resolution history
+on multiple colluding providers being correlated.
 
-# Recommendations
+# Recommendations for authentication mechanisms
+
+This section enumerates recommended considerations for selecting a client
+authentication mechanism and recommends solutions to guide implementors who wish
+to maximize chances of interoperability wherever other implementations hold the
+same considerations.
 
 The following requirements were considered when formulating the
 recommended authentication mechanism for encrypted DNS clients.
-The authentication mechanism:
+it is RECOMMENDED that authentication mechanisms:
 
-1. SHOULD be per-connection, not per-query, e.g. to
+1. be per-connection, not per-query, e.g. to
 avoid unnecessary payload overheads
-2. SHOULD use open, standard mechanisms where
+2. use open, standard mechanisms where
 possible, e.g. to avoid vendor lock-in and specialized cryptography
-3. SHOULD be reusable across multiple encrypted DNS protocols, e.g.
+3. be reusable across multiple encrypted DNS protocols, e.g.
 to avoid protocol preference
-4. SHOULD NOT require human user interaction to complete authentication
+4. not require human user interaction to complete authentication
+5. be resistant to replay attacks
 
-This document concludes that the best mechanism for encrypted
-DNS client authentication is mTLS {{?RFC8705}} for the following
-reasons:
+This document concludes that the best current mechanism available to recommend
+for enabling interoperable encrypted DNS client authentication is
+mTLS {{?RFC8705}} for the following reasons:
 
 1. mTLS identifies and authenticates clients, not users, per-connection
 2. mTLS is an existing standard and is often readily available for TLS clients
@@ -274,11 +289,16 @@ organization via PKI heiracrchy
 for authentication
 
 Encrypted DNS clients and servers that support offering or requesting
-client authentication MUST support at least the use of mTLS with TLS 1.3 in
+client authentication SHOULD support at least the use of mTLS with TLS 1.3 in
 addition to whatever other mechanism they wish to support. Client 
 authentication using PKI certificates is RECOMMENDED, but pre-shared
-keys MAY also be used, provided (EC)DHE key exchange is used to maintain
-perfect forward secrecy {{?RFC8446}}.
+keys MAY also be used to meet the requirements listed above for recommendable
+practices, provided (EC)DHE key exchange is used to maintain
+perfect forward secrecy {{?RFC8446}}. Versions of TLS lower than 1.3 lack some
+security features that new protocols (as of this writing) are taking for granted
+or making recommended behavior. When TLS 1.3 is discouraged in favor of future
+versions of TLS or its future replacement, that guidance supercedes this
+paragraph.
 
 Encrypted DNS clients and servers SHOULD prefer long-lived connections
 when using client authentication to minimize the cost over time of
@@ -326,6 +346,16 @@ inevitably lead to click-through behavior. Because the scope of
 scenarios where client authentication for encrypted DNS is limited
 to pre-existing relationships between the client and server, there
 should be no need for at-run-time intervention by a human user.
+
+### Resistance to replay attacks
+
+Today, there are some attempts to identify clients that involve use of client-
+specific DoH templates or DoT hostnames, addition of magic strings to requests,
+and other mechanisms to enable proprietary experiences. It is important that
+recommendations for client authentication are restricted to mechanisms that
+would require compromise of secrets versus configurations which may not enjoy
+the same storage or memeory protections within apps or operating systems that
+cryptographic secrets do.
 
 ## Why alternatives are not recommended
 
@@ -403,6 +433,28 @@ mTLS. This document does not define recommendations for when and
 how to use encrypted DNS client authentication for encrypted DNS
 protocols that are not based on TLS or dTLS.
 
+## Custom Deployments
+
+This document was written to provide guidance to implementors interoperating
+with third party implementations to maximize the chances of out-of-the-box
+compatibility. There are certainly many ways of accomplishing client
+authentication with encrypted DNS not listed as recommended practice here.
+Implementors are encouraged to use the reasoning in this document explaining
+its choice in recommendations, but not following this document's recommendations
+does not imply any violation of protocol compliance for encrypted DNS protocols
+or whatever authentication mechanism the implementor selects.
+
+## Use of DNS for Indicators of Compromise
+
+DNS queries can sometimes act as a source of Indicators of Compromise
+{{!RFC9424}}, further placing value on strong client authentication when it is
+appropriate as discussed in earlier sections.
+
+Deployers should weigh the recommendations and reasoning in this
+document against their threat models to ensure their Protective DNS deployments
+provide useful Indicators of Compromise in addition to the need for
+interoperability.
+
 # IANA Considerations
 
 This document has no IANA actions.
@@ -413,4 +465,6 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The authors are grateful to the following individuals for their feedback on or
+contributions to the text, with no implication of endorsement: Ben Schwartz,
+[...], Tim Wicinski.
