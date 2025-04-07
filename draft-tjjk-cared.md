@@ -282,7 +282,7 @@ mTLS {{?RFC8705}} for the following reasons:
 2. mTLS is an existing standard and is often readily available for TLS clients
 3. X.509 certificates used for TLS client authentication allow a server to
 include other attributes in an authentication decision, such as the client's
-organization via PKI heiracrchy
+organization via PKI hieracrchy
 4. mTLS is reusable across multiple encrypted DNS protocols
 5. mTLS allows session resumption {{?RFC8446}}
 6. mTLS does not require user interaction or apaplication layer input
