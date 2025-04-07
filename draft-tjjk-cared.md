@@ -354,7 +354,7 @@ specific DoH templates or DoT hostnames, addition of magic strings to requests,
 and other mechanisms to enable proprietary experiences. It is important that
 recommendations for client authentication are restricted to mechanisms that
 would require compromise of secrets versus configurations which may not enjoy
-the same storage or memeory protections within apps or operating systems that
+the same storage or memory protections within apps or operating systems that
 cryptographic secrets do.
 
 ## Why alternatives are not recommended
