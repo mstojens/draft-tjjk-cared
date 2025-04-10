@@ -353,9 +353,8 @@ Today, there are some attempts to identify clients that involve use of client-
 specific DoH templates or DoT hostnames, addition of magic strings to requests,
 and other mechanisms to enable proprietary experiences. It is important that
 recommendations for client authentication are restricted to mechanisms that
-would require compromise of secrets versus configurations which may not enjoy
-the same storage or memory protections within apps or operating systems that
-cryptographic secrets do.
+protect their secrets or keys from replay attacks or compromise by unprivileged
+processes.
 
 ## Why alternatives are not recommended
 
